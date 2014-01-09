@@ -77,5 +77,21 @@ describe('jQuery form element defaultValue plugin', function() {
 
             expect(this.$e.defaultValue()).toEqual(v);
         });
+
+        it('shoud sync defaultValue correctly if defaultValue existed before', function() {
+            this.$fixture = setFixtures('<select id="e">' +
+                                        '<option value="1" selected></option>' +
+                                        '<option value="2"></option>' +
+                                        '</select>');
+            this.$e = $('select', this.$fixture);
+            var o = this.$e.find('option')[1];
+            o.selected = true;
+            var v = o.value;
+
+            this.$e.syncDefaultValue();
+
+            expect(this.$e.defaultValue()).toEqual(v);
+        });
+
     });
 });
