@@ -33,9 +33,9 @@
 
         switch (tagName) {
             case 'select':
-                this.find('>option').filter(function() {
-                    return this.value === newValue.toString();
-                }).prop(PROP_MAPPING[tagName], newValue);
+                this.find('>option').each(function(i, element) {
+                    element[PROP_MAPPING[tagName]] = (element.value === newValue.toString());
+                });
                 break;
             default:
                 me.prop(PROP_MAPPING[tagName], newValue);
