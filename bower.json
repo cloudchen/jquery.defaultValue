@@ -1,0 +1,22 @@
+{
+  "name": "jquery.defaultValue",
+  "version": "0.0.1",
+  "description": "Retrieving, setting and sync defaultValue with value property of HTML form elements via jQuery",
+  "main": "src/jquery.defaultValue.js",
+  "authors": [
+    "Cloud Chen <cloudcmh@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": false,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "jasmine-jquery": "~1.7.0",
+    "jquery": ">1.6"
+  }
+}
