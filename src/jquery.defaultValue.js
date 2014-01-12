@@ -26,6 +26,7 @@
                 }).val();
                 break;
             case 'checkbox':
+            case 'radio':
                 dValue = this.eq(0).prop(defaultValue) ? this[0].value : undefined;
                 break;
             default:
@@ -47,6 +48,7 @@
                 });
                 break;
             case 'checkbox':
+            case 'radio':
                 /* falls through */
             default:
                 me.prop(defaultValue, updatedValue);
@@ -70,6 +72,7 @@
             var val;
             switch (element.type) {
                 case 'checkbox':
+                case 'radio':
                     val = $e.prop('checked');
                     break;
                 default:

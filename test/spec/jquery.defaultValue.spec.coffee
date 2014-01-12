@@ -276,6 +276,51 @@ describe 'jQuery form element defaultValue plugin', ->
         expect($(this).defaultValue()).toBe results[i]
 
 
+  describe 'radio element', ->
+    beforeEach ->
+      @$fixture = setFixtures '<input type="radio" name="test" value="1">
+                               <input type="radio" name="test" value="2" checked>'
+      @$e = @$fixture.find 'input[type="radio"]'
+
+    it 'should return undefined if defaultchecked status is false', ->
+      expect(@$e.eq(0).defaultValue()).toBeUndefined
+
+    it 'should return value property as defaultValue if defaultchecked status is true', ->
+      expect(@$e.eq(1).defaultValue()).toBe '2'
+
+    it 'should return defaultValue of first element of matched elements', ->
+      expect(@$e.defaultValue()).toBeUndefined
+
+      @$fixture = setFixtures '<input type="radio" name="test" value="1" checked>
+                               <input type="radio" name="test" value="2">'
+      @$e = @$fixture.find 'input[type="radio"]'
+
+      expect(@$e.defaultValue()).toBe '1'
+
+    it 'should update defaultValue correctly for no matter how many matched elements', ->
+      @$e.defaultValue true
+      @$e.each ->
+        expect($(this).defaultValue()).toBe this.value
+
+      @$e.eq(0).defaultValue false
+      expect(@$e.eq(0).defaultValue()).toBeUndefined
+
+    it 'should sync defaultValue with current checked status of all matched elements', ->
+      @$fixture = setFixtures '<input type="radio" name="test" value="1">
+                               <input type="radio" name="test" value="2" checked>
+                               <input type="radio" name="t2" value="a">
+                               <input type="radio" name="t2" value="b">
+                               '
+      @$e = @$fixture.find 'input[type="radio"]'
+      @$e.eq(0).prop('checked', true)
+      @$e.eq(3).prop('checked', true)
+
+      results = ['1', undefined, undefined, 'b']
+      @$e.syncDefaultValue()
+      @$e.each (i)->
+        expect($(this).defaultValue()).toBe results[i]
+
+
   describe 'non-html form element', ->
     beforeEach ->
       @$fixture = setFixtures '<div id="e"></div>'
