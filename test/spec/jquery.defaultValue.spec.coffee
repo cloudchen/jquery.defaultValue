@@ -177,13 +177,151 @@ describe 'jQuery form element defaultValue plugin', ->
       selectedIndexes = [0, 1, 2]
       selectedValues = ['', '2', 'world']
       @$e.each (i)->
-        #selectedIndex = Math.floor(this.options.length * Math.random())
-        #selectedValues.push this.options[selectedIndex].value
         this.options[selectedIndexes[i]].selected = true
 
       @$e.syncDefaultValue()
       @$e.each (i)->
         expect($(this).defaultValue()).toBe selectedValues[i]
+
+
+  describe 'multiple select element', ->
+    it 'should return undefined default value', ->
+      @$fixture = setFixtures '<select multiple>
+                               <option value="1"></option>
+                               <option value="2"></option>
+                               </select>'
+      @$e = $('select', @$fixture)
+      expect(@$e.defaultValue()).toBeUndefined()
+
+    it 'should return array as default value when one option is selected', ->
+      @$fixture = setFixtures '<select multiple>
+                               <option value="1"></option>
+                               <option value="2"></option>
+                               <option value="3" selected></option>
+                               </select>'
+      @$e = $('select', @$fixture)
+      expect(@$e.defaultValue()).toEqual ['3']
+
+    it 'should return array as default value when multiple options are selected', ->
+      @$fixture = setFixtures '<select multiple>
+                               <option value="1" selected></option>
+                               <option value="2"></option>
+                               <option value="3" selected></option>
+                               </select>'
+      @$e = $('select', @$fixture)
+      expect(@$e.defaultValue()).toEqual ['1', '3']
+
+    it 'should return correct default value for the first element
+        in the set of matched elements', ->
+      @$fixture = setFixtures '<select multiple>
+                               <option value="a"></option>
+                               <option value="b"></option>
+                               </select>
+                               <select multiple>
+                               <option value="1"></option>
+                               <option value="2" selected></option>
+                               </select>'
+      @$e = $('select', @$fixture)
+      expect(@$e.defaultValue()).toBeUndefined()
+      
+      @$fixture = setFixtures '<select multiple>
+                               <option value="1"></option>
+                               <option value="2" selected></option>
+                               </select>
+                               <select multiple>
+                               <option value="a"></option>
+                               <option value="b"></option>
+                               </select>'
+      @$e = $('select', @$fixture)
+      expect(@$e.defaultValue()).toEqual ['2']
+
+    it 'should update defaultValue correctly', ->
+      @$fixture = setFixtures '<select multiple>
+                               <option value="1" selected></option>
+                               <option value="2"></option>
+                               <option value="3"></option>
+                               </select>'
+      @$e = $('select', @$fixture)
+
+      o = @$e.find('option').eq(1)
+      o.prop('selected', true)
+
+      o = @$e.find('option').eq(2)
+      o.prop('selected', true)
+
+      v = ['2', '3']
+
+      expect(@$e.defaultValue()).toEqual ['1']
+      expect(@$e.defaultValue()).not.toEqual v
+      @$e.defaultValue.apply(@$e, v)
+      expect(@$e.defaultValue()).toEqual v
+
+    it 'should update defaultValue correctly of multiple matched elements', ->
+      @$fixture = setFixtures '<select multiple>
+                               <option value="a"></option>
+                               <option value="b"></option>
+                               <option value="1" selected></option>
+                               </select>
+                               <select multiple>
+                               <option value="1"></option>
+                               <option value="2" selected></option>
+                               <option value="a"></option>
+                               </select>
+                               <select multiple>
+                               <option value="hello"></option>
+                               <option value="a" selected></option>
+                               <option value="world"></option>
+                               <option value="1"></option>
+                               </select>'
+
+      @$e = $('select', @$fixture)
+      v = ['a', '1']
+      @$e.defaultValue.apply(@$e, v)
+      @$e.each (i, element)->
+        for value in v
+          expect($(element).defaultValue()).toContain value
+
+    it 'should sync defaultValue correctly', ->
+      @$fixture = setFixtures '<select multiple>
+                               <option value="1" selected></option>
+                               <option value="2"></option>
+                               <option value="3"></option>
+                               </select>'
+      @$e = $('select', @$fixture)
+
+      @$e.find('option').eq(0).prop('selected', false)
+      o = @$e.find('option').slice(1)
+      o.prop('selected', true)
+      @$e.syncDefaultValue()
+      expect(@$e.defaultValue()).toEqual ['2','3']
+
+    it 'should sync defaultValue correctly of matched elements
+        if defaultValue was existed before', ->
+      @$fixture = setFixtures '<select multiple>
+                               <option></option>
+                               <option value="b"></option>
+                               </select>
+                               <select multiple>
+                               <option value="1" selected></option>
+                               <option value="2"></option>
+                               <option value="a"></option>
+                               </select>
+                               <select multiple>
+                               <option value="hello"></option>
+                               <option value="a" selected></option>
+                               <option value="world"></option>
+                               </select>'
+
+      @$e = $('select', @$fixture)
+      selectedIndexes = [[0,1], [1,2], [0,1,2]]
+      selectedValues = [['','b'], ['1', '2','a'], ['hello','a','world']]
+      @$e.each (i)->
+        for index in selectedIndexes[i]
+          this.options[index].selected = true
+
+      @$e.syncDefaultValue()
+      @$e.each (i)->
+        expect($(this).defaultValue()).toEqual selectedValues[i]
 
 
   describe 'checkbox element', ->

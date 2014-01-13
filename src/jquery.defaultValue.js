@@ -1,6 +1,7 @@
 (function($, undefined) {'use strict';
     var PROP_MAPPING = {
         'select-one': 'defaultSelected',
+        'select-multiple': 'defaultSelected',
         'radio': 'defaultChecked',
         'checkbox': 'defaultChecked'
     };
@@ -25,6 +26,17 @@
                     return this[defaultValue];
                 }).val();
                 break;
+            case 'select-multiple':
+                dValue = [];
+                this.eq(0).find('option').each(function() {
+                    if (this[defaultValue]) {
+                        dValue.push(this.value);
+                    }
+                });
+                if (!dValue.length) {
+                    dValue = undefined;
+                }
+                break;
             case 'checkbox':
             case 'radio':
                 dValue = this.eq(0).prop(defaultValue) ? this[0].value : undefined;
@@ -45,6 +57,15 @@
             case 'select-one':
                 this.find('>option').each(function(i, element) {
                     element[defaultValue] = (element.value === updatedValue.toString());
+                });
+                break;
+            case 'select-multiple':
+                var updatedValueDict = {};
+                for (var i=0;i<arguments.length;i++) {
+                    updatedValueDict[arguments[i]] = undefined;
+                }
+                this.find('>option').each(function(i, element) {
+                    element[defaultValue] = updatedValueDict.hasOwnProperty(element.value);
                 });
                 break;
             case 'checkbox':
@@ -79,7 +100,10 @@
                     val = $e.val();
                     break;
             }
-            setDefaultValue.call($e, val);
+            if (!$.isArray(val)) {
+                val = [val];
+            }
+            setDefaultValue.apply($e, val);
         });
         return this;
     };
