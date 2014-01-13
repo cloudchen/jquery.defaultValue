@@ -28,6 +28,17 @@ module.exports = function(grunt) {
         src: ['test/spec/**/*.js']
       }
     },
+    coffeelint: {
+      options: {
+        'max_line_length': {
+            'name': 'max_line_length',
+            'value': 100,
+            'level': 'error',
+            'limitComments': true
+        },
+      },
+      spec: ['test/spec/**/*.coffee']
+    },
     clean: {
         src: ['coverage/', 'dist/']
     },
@@ -84,8 +95,13 @@ module.exports = function(grunt) {
     'build'
   ]);
 
-  grunt.registerTask('test', [
+  grunt.registerTask('lint', [
     'jshint',
+    'coffeelint'
+  ]);
+
+  grunt.registerTask('test', [
+    'lint',
     'karma:ci',
   ]);
 
