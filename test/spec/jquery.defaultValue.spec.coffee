@@ -363,7 +363,7 @@ describe 'jQuery form element defaultValue plugin', ->
       @$fixture = setFixtures '<input type="checkbox" name="test" checked>
                                <input type="checkbox" name="test">'
       @$e = @$fixture.find 'input[type="checkbox"]'
-      @$fixture.append('<input type="checkbox" id="a">')
+      @$fixture.append('<input type="checkbox" id="a" checked>')
       browser_value = $('#a', @$fixture)[0].value
       expect(@$e.defaultValue()).toEqual browser_value
 
