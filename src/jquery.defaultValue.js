@@ -1,4 +1,5 @@
-(function($, undefined) {'use strict';
+(function($, undefined) {
+    'use strict';
     var PROP_MAPPING = {
         'select-one': 'defaultSelected',
         'select-multiple': 'defaultSelected',
@@ -61,7 +62,7 @@
                 break;
             case 'select-multiple':
                 var updatedValueDict = {};
-                for (var i=0;i<arguments.length;i++) {
+                for (var i = 0; i < arguments.length; i++) {
                     updatedValueDict[arguments[i]] = undefined;
                 }
                 this.find('>option').each(function(i, element) {
@@ -88,7 +89,7 @@
     };
 
     $.fn.syncDefaultValue = function() {
-        $(this).each(function(i, element){
+        $(this).each(function(i, element) {
             var $e = $(element);
             var val;
             switch (element.type) {

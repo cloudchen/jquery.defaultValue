@@ -54,6 +54,14 @@ module.exports = function(grunt) {
         reporters: ['dots', 'coverage']
       }
     },
+    'jsbeautifier' : {
+      'source': {
+        src: ['src/**/*.js'],
+        options : {
+          config: '.jsbeautifyrc'
+        }
+      },
+    },
     requirejs: {
       options: {
         baseUrl: 'src',
