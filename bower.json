@@ -13,7 +13,13 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "coverage",
+    "dist",
+    "karma.conf.js",
+    "package.json",
+    "Gruntfile.js",
+    "coffeelint.json"
   ],
   "devDependencies": {
     "jasmine-jquery": "~1.7.0",
