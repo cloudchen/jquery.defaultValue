@@ -459,6 +459,38 @@ describe 'jQuery form element defaultValue plugin', ->
         expect($(this).defaultValue()).toBe results[i]
 
 
+  describe 'textarea element', ->
+    it 'should return undefined if defaultValue is not set', ->
+      @$fixture = setFixtures '<textarea></textarea>'
+      @$e = @$fixture.find 'textarea'
+      expect(@$e.eq(0).defaultValue()).toBeUndefined
+
+    it 'should return defaultValue correctly if defaultValue is set', ->
+      @$fixture = setFixtures '<textarea>123</textarea>'
+      @$e = @$fixture.find 'textarea'
+      expect(@$e.eq(0).defaultValue()).toEqual '123'
+
+    it 'recognizes space and linebreak as defaulValue', ->
+      @$fixture = setFixtures '<textarea> \n </textarea>'
+      @$e = @$fixture.find 'textarea'
+      expect(@$e.eq(0).defaultValue()).toEqual ' \n '
+
+    it 'should update defaultValue correctly', ->
+      @$fixture = setFixtures '<textarea>v1</textarea><textarea>v2</textarea>'
+      @$e = @$fixture.find 'textarea'
+      @$e.defaultValue 'updated_value'
+      expect(@$e.eq(0).defaultValue()).toEqual 'updated_value'
+      expect(@$e.eq(1).defaultValue()).toEqual 'updated_value'
+
+    it 'should sync defaultValue correctly', ->
+      @$fixture = setFixtures '<textarea>v1</textarea><textarea>v2</textarea>'
+      @$e = @$fixture.find 'textarea'
+      @$e.eq(0).val 'updated_value1'
+      @$e.eq(1).val 'updated_value2'
+      @$e.syncDefaultValue()
+      expect(@$e.eq(0).defaultValue()).toEqual 'updated_value1'
+      expect(@$e.eq(1).defaultValue()).toEqual 'updated_value2'
+
   describe 'non-html form element', ->
     beforeEach ->
       @$fixture = setFixtures '<div id="e"></div>'
