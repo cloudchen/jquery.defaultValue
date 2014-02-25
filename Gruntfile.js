@@ -94,7 +94,12 @@ module.exports = function(grunt) {
           out: 'dist/<%= pkg.name%>.min.js',
         }
       }
-    }
+    },
+    coveralls: {
+      basicTest: {
+        src: 'coverage/**/*.info'
+      },
+    },
   });
 
   // Default task.
