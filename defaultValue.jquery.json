@@ -1,0 +1,26 @@
+{
+  "name": "defaultValue",
+  "title": "jQuery defaultValue",
+  "description": "Retrieving, setting and sync defaultValue with value property of HTML form elements via jQuery",
+  "keywords": [
+    "form",
+    "element",
+    "defaultValue"
+  ],
+  "version": "0.0.1",
+  "author": {
+    "name": "Cloud Chen",
+    "url": "https://github.com/cloudchen"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://raw.githubusercontent.com/cloudchen/jquery.defaultValue/master/LICENSE"
+    }
+  ],
+  "bugs": "https://github.com/cloudchen/jquery.defaultValue/issues",
+  "homepage": "https://github.com/cloudchen/jquery.defaultValue",
+  "dependencies": {
+    "jquery": ">1.6"
+  }
+}
