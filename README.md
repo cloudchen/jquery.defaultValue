@@ -192,3 +192,4 @@ $.post(form.attr('action'), form.serialize())
 
 Change Log
 ===================
+* v0.1.0, 21.03.14, First release
