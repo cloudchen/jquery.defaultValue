@@ -45,6 +45,7 @@
     "grunt-contrib-requirejs": "~0.4.1",
     "grunt-coffeelint": "0.0.8",
     "grunt-jsbeautifier": "~0.2.6",
-    "grunt-coveralls": "^0.3.0"
+    "grunt-coveralls": "^0.3.0",
+    "grunt-bump": "0.0.13"
   }
 }

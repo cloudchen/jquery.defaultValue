@@ -100,6 +100,13 @@ module.exports = function(grunt) {
         src: 'coverage/**/*.info'
       },
     },
+    bump: {
+      options: {
+        files: ['package.json', 'bower.json', 'defaultValue.jquery.json'],
+        push: false,
+        pushTo: 'origin'
+      }
+    }
   });
 
   // Default task.
