@@ -1,7 +1,9 @@
 jquery.defaultValue
 ===================
-
-[![Build Status](https://travis-ci.org/cloudchen/jquery.defaultValue.png?branch=master)](https://travis-ci.org/cloudchen/jquery.defaultValue) [![Coverage Status](https://coveralls.io/repos/cloudchen/jquery.defaultValue/badge.png)](https://coveralls.io/r/cloudchen/jquery.defaultValue) [![Dependency Status](https://david-dm.org/cloudchen/jquery.defaultValue.png)](https://david-dm.org/cloudchen/jquery.defaultValue) [![devDependency Status](https://david-dm.org/cloudchen/jquery.defaultValue/dev-status.png)](https://david-dm.org/cloudchen/jquery.defaultValue#info=devDependencies)
+[![Build Status](https://travis-ci.org/cloudchen/jquery.defaultValue.png?branch=master)](https://travis-ci.org/cloudchen/jquery.defaultValue)
+[![Coverage Status](https://coveralls.io/repos/cloudchen/jquery.defaultValue/badge.png)](https://coveralls.io/r/cloudchen/jquery.defaultValue)
+[![Dependency Status](https://david-dm.org/cloudchen/jquery.defaultValue.png)](https://david-dm.org/cloudchen/jquery.defaultValue)
+[![devDependency Status](https://david-dm.org/cloudchen/jquery.defaultValue/dev-status.png)](https://david-dm.org/cloudchen/jquery.defaultValue#info=devDependencies)
 
 > Getting, setting and sync defaultValue with value property of HTML form elements via jQuery
 
@@ -11,7 +13,9 @@ jQuery defaultValue plugin works exactly like .val() native method except return
 
 Installation
 ===================
-bower install jquery.defaultValue
+[![Bower version](https://badge.fury.io/bo/jquery.defaultValue.png)](http://badge.fury.io/bo/jquery.defaultValue)
+
+`bower install jquery.defaultValue`
 
 API Reference
 ===================
