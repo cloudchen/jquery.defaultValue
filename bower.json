@@ -1,6 +1,6 @@
 {
   "name": "jquery.defaultValue",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Retrieving, setting and sync defaultValue with value property of HTML form elements via jQuery",
   "main": "src/jquery.defaultValue.js",
   "authors": [
