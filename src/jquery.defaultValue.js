@@ -35,7 +35,7 @@
                     }
                 });
                 if (!dValue.length) {
-                    dValue = undefined;
+                    dValue = null;
                 }
                 break;
             case 'checkbox':
@@ -62,8 +62,10 @@
                 break;
             case 'select-multiple':
                 var updatedValueDict = {};
-                for (var i = 0; i < arguments.length; i++) {
-                    updatedValueDict[arguments[i]] = undefined;
+                if ($.isArray(updatedValue)) {
+                    for (var i = 0, ii = updatedValue.length; i < ii; i++) {
+                        updatedValueDict[updatedValue[i]] = undefined;
+                    }
                 }
                 this.find('>option').each(function(i, element) {
                     element[defaultValue] = updatedValueDict.hasOwnProperty(element.value);
@@ -101,10 +103,12 @@
                     val = $e.val();
                     break;
             }
-            if (!$.isArray(val)) {
+            if ($.isArray(val)) {
+                setDefaultValue.call($e, val);
+            } else {
                 val = [val];
+                setDefaultValue.apply($e, val);
             }
-            setDefaultValue.apply($e, val);
         });
         return this;
     };

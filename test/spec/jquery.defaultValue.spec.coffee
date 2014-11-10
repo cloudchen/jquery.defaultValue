@@ -191,7 +191,7 @@ describe 'jQuery form element defaultValue plugin', ->
                                <option value="2"></option>
                                </select>'
       @$e = $('select', @$fixture)
-      expect(@$e.defaultValue()).toBeUndefined()
+      expect(@$e.defaultValue()).toBeNull()
 
     it 'should return array as default value when one option is selected', ->
       @$fixture = setFixtures '<select multiple>
@@ -222,7 +222,7 @@ describe 'jQuery form element defaultValue plugin', ->
                                <option value="2" selected></option>
                                </select>'
       @$e = $('select', @$fixture)
-      expect(@$e.defaultValue()).toBeUndefined()
+      expect(@$e.defaultValue()).toBeNull()
       
       @$fixture = setFixtures '<select multiple>
                                <option value="1"></option>
@@ -253,8 +253,33 @@ describe 'jQuery form element defaultValue plugin', ->
 
       expect(@$e.defaultValue()).toEqual ['1']
       expect(@$e.defaultValue()).not.toEqual v
-      @$e.defaultValue.apply(@$e, v)
+      @$e.defaultValue(v)
       expect(@$e.defaultValue()).toEqual v
+
+    it 'should update defaultValue correctly if none of options are selected', ->
+      @$fixture = setFixtures '<select multiple>
+                               <option value="1" selected></option>
+                               <option value="2"></option>
+                               <option value="3" selected></option>
+                               </select>'
+      @$e = $('select', @$fixture)
+
+      o = @$e.find('option').eq(0)
+      o.prop('selected', false)
+
+      o = @$e.find('option').eq(2)
+      o.prop('selected', false)
+
+      v = null
+
+      expect(@$e.defaultValue()).toEqual ['1', '3']
+      expect(@$e.defaultValue()).not.toBe v
+      @$e.defaultValue(v)
+      expect(@$e.defaultValue()).toBeNull()
+      @$e.defaultValue([])
+      expect(@$e.defaultValue()).toBeNull()
+      @$e.defaultValue(undefined)
+      expect(@$e.defaultValue()).toBeNull()
 
     it 'should update defaultValue correctly of multiple matched elements', ->
       @$fixture = setFixtures '<select multiple>
@@ -276,7 +301,7 @@ describe 'jQuery form element defaultValue plugin', ->
 
       @$e = $('select', @$fixture)
       v = ['a', '1']
-      @$e.defaultValue.apply(@$e, v)
+      @$e.defaultValue(v)
       @$e.each (i, element)->
         for value in v
           expect($(element).defaultValue()).toContain value
@@ -421,13 +446,13 @@ describe 'jQuery form element defaultValue plugin', ->
       @$e = @$fixture.find 'input[type="radio"]'
 
     it 'should return undefined if defaultchecked status is false', ->
-      expect(@$e.eq(0).defaultValue()).toBeUndefined
+      expect(@$e.eq(0).defaultValue()).toBeUndefined()
 
     it 'should return value property as defaultValue if defaultchecked status is true', ->
       expect(@$e.eq(1).defaultValue()).toBe '2'
 
     it 'should return defaultValue of first element of matched elements', ->
-      expect(@$e.defaultValue()).toBeUndefined
+      expect(@$e.defaultValue()).toBeUndefined()
 
       @$fixture = setFixtures '<input type="radio" name="test" value="1" checked>
                                <input type="radio" name="test" value="2">'
@@ -441,7 +466,7 @@ describe 'jQuery form element defaultValue plugin', ->
         expect($(this).defaultValue()).toBe this.value
 
       @$e.eq(0).defaultValue false
-      expect(@$e.eq(0).defaultValue()).toBeUndefined
+      expect(@$e.eq(0).defaultValue()).toBeUndefined()
 
     it 'should sync defaultValue with current checked status of all matched elements', ->
       @$fixture = setFixtures '<input type="radio" name="test" value="1">
@@ -463,7 +488,7 @@ describe 'jQuery form element defaultValue plugin', ->
     it 'should return undefined if defaultValue is not set', ->
       @$fixture = setFixtures '<textarea></textarea>'
       @$e = @$fixture.find 'textarea'
-      expect(@$e.eq(0).defaultValue()).toBeUndefined
+      expect(@$e.eq(0).defaultValue()).toBe ''
 
     it 'should return defaultValue correctly if defaultValue is set', ->
       @$fixture = setFixtures '<textarea>123</textarea>'

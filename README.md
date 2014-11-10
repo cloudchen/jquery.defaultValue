@@ -162,6 +162,25 @@ $('select').defaultValue();
 -> ["bar", "baz"]
 ```
 
+It also supports passing `null` or empty Array `[]` as none of options to be selected
+> ```html
+<select multiple>
+  <option value="foo" selected>foo</option>
+  <option value="bar" selected>bar</option>
+  <option value="baz">baz</option>
+</select>
+```
+```javascript
+$('select').defaultValue(null);
+// or
+$('select').defaultValue([]);
+```
+Expected result:
+```javascript
+$('select').defaultValue();
+-> null
+```
+
 For **checkbox** element, it accpets an boolean status as value.
 
 > ```html
@@ -196,4 +215,5 @@ $.post(form.attr('action'), form.serialize())
 
 Change Log
 ===================
+* v0.2.0, 10.10.14, Add support for setting null to multiple select
 * v0.1.0, 21.03.14, First release
