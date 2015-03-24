@@ -201,13 +201,13 @@ For **radio** element, it works exactly same with checkbox element.
 
 `syncDefaultValue()` is helper method for simply sync defaultValue by current value property.
 
-#### Best usage scenario
-Sometimes, we'd sync defaultValue for all form elments after the form has been submitted via Ajax.
+#### Typical scenario
+In a single page application, we'd sync defaultValue for all form elments to make sure `form.reset()` method work as expected after the form has been submitted via Ajax.
 
-Here's the typical code for that scenario:
+Here's the code for this scenario:
 ```javascript
 var form = document.forms[0];
-$.post(form.attr('action'), form.serialize())
+$.post(form.attr('action'), $(form).serialize())
  .done(function(){
    $(form.elements).syncDefaultValue();
  });
